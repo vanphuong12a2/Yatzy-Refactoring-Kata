@@ -53,43 +53,38 @@ class Yatzy {
         return s;
     }
 
-    protected int[] dice;
-
-    Yatzy(int d1, int d2, int d3, int d4, int _5) {
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = _5;
-    }
-
-    int fours() {
-        int sum;
-        sum = 0;
-        for (int at = 0; at != 5; at++) {
-            if (dice[at] == 4) {
-                sum += 4;
-            }
-        }
-        return sum;
-    }
-
-    int fives() {
-        int s = 0;
-        int i;
-        for (i = 0; i < dice.length; i++)
-            if (dice[i] == 5)
-                s = s + 5;
+    static int fours(int d1, int d2, int d3, int d4, int d5) {
+        int s;
+        s = 0;
+        if (d1 == 4) s += 4;
+        if (d2 == 4) s += 4;
+        if (d3 == 4) s += 4;
+        if (d4 == 4) s += 4;
+        if (d5 == 4) s += 4;
         return s;
     }
 
-    int sixes() {
-        int sum = 0;
-        for (int at = 0; at < dice.length; at++)
-            if (dice[at] == 6)
-                sum = sum + 6;
-        return sum;
+    static int fives(int d1, int d2, int d3, int d4, int d5) {
+        int s;
+        s = 0;
+        if (d1 == 5) s += 5;
+        if (d2 == 5) s += 5;
+        if (d3 == 5) s += 5;
+        if (d4 == 5) s += 5;
+        if (d5 == 5) s += 5;
+        return s;
+    }
+
+
+    static int sixes(int d1, int d2, int d3, int d4, int d5) {
+        int s;
+        s = 0;
+        if (d1 == 6) s += 6;
+        if (d2 == 6) s += 6;
+        if (d3 == 6) s += 6;
+        if (d4 == 6) s += 6;
+        if (d5 == 6) s += 6;
+        return s;
     }
 
     static int pair(int d1, int d2, int d3, int d4, int d5) {
