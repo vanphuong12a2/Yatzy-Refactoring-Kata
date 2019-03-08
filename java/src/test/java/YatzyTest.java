@@ -62,7 +62,7 @@ public class YatzyTest {
     public void pairScoreSumsHighestMatchingPair() {
         assertEquals(6, Yatzy.pair(3, 4, 3, 5, 6));
         assertEquals(10, Yatzy.pair(5, 3, 3, 3, 5));
-        assertEquals(12, Yatzy.pair(5, 3, 6, 6, 5));
+        assertEquals(12, Yatzy.pair(5, 6, 6, 6, 5));
     }
 
     @Test

@@ -1,13 +1,16 @@
 import java.util.Arrays;
+import java.util.OptionalInt;
 
 class Yatzy {
+
+    private static final int[] DICE = {1, 2, 3, 4, 5, 6};
 
     static int chance(int... dice) {
         return Arrays.stream(dice).sum();
     }
 
     static int yatzy(int... dice) {
-        if (isAllDiceWithSameNumber(dice)) return 50;
+        if (isYatzy(dice)) return 50;
         return 0;
     }
 
@@ -35,38 +38,18 @@ class Yatzy {
         return Arrays.stream(dice).filter(die -> die == 6).sum();
     }
 
-    static int pair(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = new int[6];
-        counts[d1 - 1]++;
-        counts[d2 - 1]++;
-        counts[d3 - 1]++;
-        counts[d4 - 1]++;
-        counts[d5 - 1]++;
-        int at;
-        for (at = 0; at != 6; at++)
-            if (counts[6 - at - 1] >= 2)
-                return (6 - at) * 2;
+    static int pair(int... dice) {
+        OptionalInt maxPairValue = Arrays.stream(DICE)
+                .filter(die -> hasPair(dice, die)).max();
+        if (maxPairValue.isPresent()) return maxPairValue.getAsInt() * 2;
         return 0;
     }
 
-    static int twoPair(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = new int[6];
-        counts[d1 - 1]++;
-        counts[d2 - 1]++;
-        counts[d3 - 1]++;
-        counts[d4 - 1]++;
-        counts[d5 - 1]++;
-        int n = 0;
-        int score = 0;
-        for (int i = 0; i < 6; i += 1)
-            if (counts[6 - i - 1] >= 2) {
-                n++;
-                score += (6 - i);
-            }
-        if (n == 2)
-            return score * 2;
-        else
-            return 0;
+    static int twoPair(int... dice) {
+        int[] pairs = Arrays.stream(DICE)
+                .filter(die -> hasPair(dice, die)).toArray();
+        if (pairs.length == 2) return (pairs[0] + pairs[1]) * 2;
+        return 0;
     }
 
     static int fourOfAKind(int _1, int _2, int d3, int d4, int d5) {
@@ -165,8 +148,12 @@ class Yatzy {
             return 0;
     }
 
-    private static boolean isAllDiceWithSameNumber(int... dice) {
+    private static boolean isYatzy(int... dice) {
         return Arrays.stream(dice).distinct().count() == 1;
+    }
+
+    private static boolean hasPair(int[] dice, int die) {
+        return Arrays.stream(dice).filter(d -> d == die).count() >= 2;
     }
 }
 
