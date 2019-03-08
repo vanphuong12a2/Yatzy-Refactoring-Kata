@@ -11,71 +11,28 @@ class Yatzy {
         return 0;
     }
 
-    static int ones(int d1, int d2, int d3, int d4, int d5) {
-        int sum = 0;
-        if (d1 == 1) sum++;
-        if (d2 == 1) sum++;
-        if (d3 == 1) sum++;
-        if (d4 == 1) sum++;
-        if (d5 == 1)
-            sum++;
-
-        return sum;
+    static int ones(int... dice) {
+        return Arrays.stream(dice).filter(die -> die == 1).sum();
     }
 
-    static int twos(int d1, int d2, int d3, int d4, int d5) {
-        int sum = 0;
-        if (d1 == 2) sum += 2;
-        if (d2 == 2) sum += 2;
-        if (d3 == 2) sum += 2;
-        if (d4 == 2) sum += 2;
-        if (d5 == 2) sum += 2;
-        return sum;
+    static int twos(int... dice) {
+        return Arrays.stream(dice).filter(die -> die == 2).sum();
     }
 
-    static int threes(int d1, int d2, int d3, int d4, int d5) {
-        int s;
-        s = 0;
-        if (d1 == 3) s += 3;
-        if (d2 == 3) s += 3;
-        if (d3 == 3) s += 3;
-        if (d4 == 3) s += 3;
-        if (d5 == 3) s += 3;
-        return s;
+    static int threes(int... dice) {
+        return Arrays.stream(dice).filter(die -> die == 3).sum();
     }
 
-    static int fours(int d1, int d2, int d3, int d4, int d5) {
-        int s;
-        s = 0;
-        if (d1 == 4) s += 4;
-        if (d2 == 4) s += 4;
-        if (d3 == 4) s += 4;
-        if (d4 == 4) s += 4;
-        if (d5 == 4) s += 4;
-        return s;
+    static int fours(int... dice) {
+        return Arrays.stream(dice).filter(die -> die == 4).sum();
     }
 
-    static int fives(int d1, int d2, int d3, int d4, int d5) {
-        int s;
-        s = 0;
-        if (d1 == 5) s += 5;
-        if (d2 == 5) s += 5;
-        if (d3 == 5) s += 5;
-        if (d4 == 5) s += 5;
-        if (d5 == 5) s += 5;
-        return s;
+    static int fives(int... dice) {
+        return Arrays.stream(dice).filter(die -> die == 5).sum();
     }
 
-
-    static int sixes(int d1, int d2, int d3, int d4, int d5) {
-        int s;
-        s = 0;
-        if (d1 == 6) s += 6;
-        if (d2 == 6) s += 6;
-        if (d3 == 6) s += 6;
-        if (d4 == 6) s += 6;
-        if (d5 == 6) s += 6;
-        return s;
+    static int sixes(int... dice) {
+        return Arrays.stream(dice).filter(die -> die == 6).sum();
     }
 
     static int pair(int d1, int d2, int d3, int d4, int d5) {
