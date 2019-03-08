@@ -92,7 +92,7 @@ class Yatzy {
         return sum;
     }
 
-    static int score_pair(int d1, int d2, int d3, int d4, int d5) {
+    static int pair(int d1, int d2, int d3, int d4, int d5) {
         int[] counts = new int[6];
         counts[d1 - 1]++;
         counts[d2 - 1]++;
@@ -106,7 +106,7 @@ class Yatzy {
         return 0;
     }
 
-    static int two_pair(int d1, int d2, int d3, int d4, int d5) {
+    static int twoPair(int d1, int d2, int d3, int d4, int d5) {
         int[] counts = new int[6];
         counts[d1 - 1]++;
         counts[d2 - 1]++;
@@ -126,7 +126,7 @@ class Yatzy {
             return 0;
     }
 
-    static int four_of_a_kind(int _1, int _2, int d3, int d4, int d5) {
+    static int fourOfAKind(int _1, int _2, int d3, int d4, int d5) {
         int[] tallies;
         tallies = new int[6];
         tallies[_1 - 1]++;
@@ -140,7 +140,7 @@ class Yatzy {
         return 0;
     }
 
-    static int three_of_a_kind(int d1, int d2, int d3, int d4, int d5) {
+    static int threeOfAKind(int d1, int d2, int d3, int d4, int d5) {
         int[] t;
         t = new int[6];
         t[d1 - 1]++;
