@@ -5,75 +5,62 @@ import dice.Dice;
 import java.util.Arrays;
 import java.util.function.Function;
 
+import static dice.DieValue.FIVE;
+import static dice.DieValue.FOUR;
+import static dice.DieValue.ONE;
+import static dice.DieValue.SIX;
+import static dice.DieValue.THREE;
+import static dice.DieValue.TWO;
+
 public enum ScoringRule {
 
     Chance, Yatzy, Ones, Twos, Threes, Fours, Fives, Sixes, Pair, TwoPairs,
     ThreeOfAKind, FourOfAKind, SmallStraight, LargeStraight, FullHouse;
 
     public Function<Dice, Integer> score() {
-        switch (this) {
-            case Chance:
-                return Dice::sum;
-            case Yatzy:
-                return (dice) -> {
-                    if (dice.isYatzy()) return 50;
+        return (dice -> {
+            switch (this) {
+                case Chance:
+                    return dice.sumAll();
+                case Yatzy:
+                    return dice.isYatzy() ? 50 : 0;
+                case Ones:
+                    return dice.sumAValue(ONE);
+                case Twos:
+                    return dice.sumAValue(TWO);
+                case Threes:
+                    return dice.sumAValue(THREE);
+                case Fours:
+                    return dice.sumAValue(FOUR);
+                case Fives:
+                    return dice.sumAValue(FIVE);
+                case Sixes:
+                    return dice.sumAValue(SIX);
+                case Pair: {
+                    int[] pairs = dice.getRepeatedDice(2);
+                    return (pairs.length > 0) ? Arrays.stream(pairs).max().getAsInt() * 2 : 0;
+                }
+                case TwoPairs: {
+                    int[] pairs = dice.getRepeatedDice(2);
+                    return pairs.length == 2 ? (pairs[0] + pairs[1]) * 2 : 0;
+                }
+                case ThreeOfAKind: {
+                    int[] threes = dice.getRepeatedDice(3);
+                    return threes.length == 1 ? threes[0] * 3 : 0;
+                }
+                case FourOfAKind: {
+                    int[] fours = dice.getRepeatedDice(4);
+                    return fours.length == 1 ? fours[0] * 4 : 0;
+                }
+                case SmallStraight:
+                    return dice.isSmallStraight() ? dice.sumAll() : 0;
+                case LargeStraight:
+                    return dice.isLargeStraight() ? dice.sumAll() : 0;
+                case FullHouse:
+                    return dice.isFullHouse() ? dice.sumAll() : 0;
+                default:
                     return 0;
-                };
-            case Ones:
-                return dice -> dice.getSum(1);
-            case Twos:
-                return dice -> dice.getSum(2);
-            case Threes:
-                return dice -> dice.getSum(3);
-            case Fours:
-                return dice -> dice.getSum(4);
-            case Fives:
-                return dice -> dice.getSum(5);
-            case Sixes:
-                return dice -> dice.getSum(6);
-            case Pair:
-                return dice -> {
-                    int[] pairs = dice.getPairs();
-                    if (pairs.length > 0) return Arrays.stream(pairs).max().getAsInt() * 2;
-                    return 0;
-                };
-
-            case TwoPairs:
-                return dice -> {
-                    int[] pairs = dice.getPairs();
-                    if (pairs.length == 2) return (pairs[0] + pairs[1]) * 2;
-                    return 0;
-                };
-            case ThreeOfAKind:
-                return dice -> {
-                    int[] threes = dice.getThrees();
-                    if (threes.length == 1) return threes[0] * 3;
-                    return 0;
-                };
-            case FourOfAKind:
-                return dice -> {
-                    int[] fours = dice.getFours();
-                    if (fours.length == 1) return fours[0] * 4;
-                    return 0;
-                };
-            case SmallStraight:
-                return dice -> {
-                    if (dice.isSmallStraight()) return 15;
-                    return 0;
-                };
-            case LargeStraight:
-                return dice -> {
-                    if (dice.isLargeStraight()) return 20;
-                    return 0;
-                };
-            case FullHouse:
-                return dice -> {
-                    if (dice.getThrees().length == 1 && dice.getPairs().length == 2)
-                        return dice.sum();
-                    return 0;
-                };
-            default:
-                return (dice) -> 0;
-        }
+            }
+        });
     }
 }
